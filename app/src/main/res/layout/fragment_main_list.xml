@@ -1,0 +1,43 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/holo_blue_dark"
+    tools:context="a84b9cb.info.guchiru.MainListFragment">
+    <LinearLayout
+        android:id="@+id/footer"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/et_guchi"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:maxLines="5"
+            android:minLines="1" />
+        <ImageButton
+            android:id="@+id/bt_submit"
+            android:src="@drawable/arrow_right"
+            android:background="@color/colorTransparent"
+            android:padding="4dp"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <a84b9cb.info.guchiru.MyListView
+        android:id="@+id/lvCommentView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/footer"
+        android:divider="@null"
+        ></a84b9cb.info.guchiru.MyListView>
+
+
+
+
+</RelativeLayout>
