@@ -10,9 +10,10 @@ class MainListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_list)
 
-        val fragment = MainListFragment()
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.add(R.id.container, fragment as Fragment)
-        transaction.commit()
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                    .replace(R.id.container, MainListFragment())
+                    .commit()
+        }
     }
 }

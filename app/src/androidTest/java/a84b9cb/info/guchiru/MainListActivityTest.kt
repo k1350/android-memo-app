@@ -1,5 +1,7 @@
 package a84b9cb.info.guchiru
 
+import a84b9cb.info.guchiru.adapter.GuchiAdapter
+import a84b9cb.info.guchiru.model.Guchi
 import android.support.test.espresso.Espresso.onData
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
@@ -7,13 +9,21 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import android.support.test.espresso.Espresso.onView
+import android.support.test.espresso.action.AdapterViewProtocol
 import android.support.test.espresso.action.ViewActions.*
 import android.support.test.espresso.matcher.ViewMatchers.isDisplayed
 import android.support.test.espresso.matcher.ViewMatchers.withId
 import android.support.test.espresso.matcher.ViewMatchers.withText
-import org.hamcrest.Matchers.anything
 import android.support.test.espresso.assertion.ViewAssertions.matches
-import org.hamcrest.Matchers.not
+import android.support.test.espresso.matcher.BoundedMatcher
+import android.view.View
+import android.widget.Adapter
+import android.widget.AdapterView
+import org.hamcrest.Description
+import org.hamcrest.Matcher
+import org.hamcrest.Matchers.*
+import org.hamcrest.TypeSafeMatcher
+
 
 @RunWith(AndroidJUnit4::class)
 class MainListActivityTest {
@@ -26,21 +36,25 @@ class MainListActivityTest {
      */
     @Test
     fun AllDisplayed() {
-        onView(withId(R.id.lvCommentView)).check(matches(isDisplayed()))
+        onView(withId(R.id.lv_commentView)).check(matches(isDisplayed()))
         onView(withId(R.id.footer)).check(matches(isDisplayed()))
         onView(withId(R.id.et_guchi)).check(matches(isDisplayed()))
         onView(withId(R.id.bt_submit)).check(matches(isDisplayed()))
     }
 
     fun TextEdited() {
-        onView(withId(R.id.et_guchi))
-                .perform(typeText("テスト文字列だよー"))
-        onView(withId(R.id.bt_submit)).perform(click())
-        onData(anything())
-                .inAdapterView(withId(R.id.lvCommentView))
-                .atPosition(0)
-                .onChildView(withId(R.id.tv_comment))
-                .check(matches(withText("aaa")))
+//        onView(withId(R.id.et_guchi))
+//                .perform(typeText("テスト文字列だよー"))
+//        onView(withId(R.id.bt_submit)).perform(click())
+//        onData(anything())
+//                .inAdapterView(withId(R.id.lv_commentView))
+//                .atPosition(0)
+//                .onChildView(withId(R.id.tv_comment))
+//                .check(matches(withText("aaa")))
+
+        onData(CustomViewAction.checkCommentText("aaa")).check(matches(isDisplayed()))
     }
+
+
 
 }

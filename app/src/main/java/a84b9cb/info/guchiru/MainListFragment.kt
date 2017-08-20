@@ -3,14 +3,10 @@ package a84b9cb.info.guchiru
 
 import a84b9cb.info.guchiru.adapter.GuchiAdapter
 import a84b9cb.info.guchiru.model.Guchi
-import android.content.Context
 import android.os.Bundle
 import android.support.annotation.Nullable
 import android.support.v4.app.Fragment
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.*
 
 import java.util.*
@@ -33,9 +29,8 @@ class MainListFragment : Fragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mCommentListView = view?.findViewById<View>(R.id.lvCommentView) as MyListView
+        mCommentListView = view?.findViewById<View>(R.id.lv_commentView) as MyListView
         mEtGuchi = view?.findViewById<EditText>(R.id.et_guchi)
-        comments.add(Guchi("てすともじれつだよー", Date()))
         adapter = GuchiAdapter(activity, comments)
         mCommentListView?.adapter = adapter
 
@@ -46,8 +41,34 @@ class MainListFragment : Fragment() {
                 adapter?.addList(Guchi(str, Date()))
                 adapter?.notifyDataSetChanged()
                 mEtGuchi?.text?.clear()
+                mCommentListView?.setSelection(adapter!!.count - 1)
             }
         }
+
+        registerForContextMenu(mCommentListView)
+    }
+
+    override fun onCreateContextMenu(menu: ContextMenu?, view: View?, menuInfo: ContextMenu.ContextMenuInfo?) {
+        super.onCreateContextMenu(menu, view, menuInfo)
+        val inflater: MenuInflater = activity.menuInflater
+        inflater.inflate(R.menu.menu_context_menu_list, menu)
+        menu?.setHeaderIcon(android.R.drawable.ic_menu_edit)
+        menu?.setHeaderIcon(android.R.drawable.ic_menu_delete)
+    }
+
+    override fun onContextItemSelected(item: MenuItem?): Boolean {
+        val info = item?.menuInfo as AdapterView.AdapterContextMenuInfo
+        val listPosition = info.position
+        val itemId = item?.itemId
+
+        when(itemId) {
+            R.id.menuListOptionDelete -> {
+                adapter?.removeList(listPosition)
+                adapter?.notifyDataSetChanged()
+            }
+        }
+
+        return super.onContextItemSelected(item)
     }
 
 

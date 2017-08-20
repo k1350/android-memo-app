@@ -30,7 +30,7 @@
     </LinearLayout>
 
     <a84b9cb.info.guchiru.MyListView
-        android:id="@+id/lvCommentView"
+        android:id="@+id/lv_commentView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/footer"

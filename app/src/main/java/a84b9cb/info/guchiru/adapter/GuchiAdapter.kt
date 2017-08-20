@@ -61,4 +61,8 @@ class GuchiAdapter(val context: Context, val comments: MutableList<Guchi>): Base
     fun addList(guchi: Guchi) {
         comments.add(guchi)
     }
+
+    fun removeList(position: Int) {
+        comments.removeAt(position)
+    }
 }
